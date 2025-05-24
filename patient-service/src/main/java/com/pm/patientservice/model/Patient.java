@@ -30,12 +30,12 @@ public class Patient {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "dateOfBirth")
+    @Column(name = "date_of_birth")
     private Date dateOfBirth;
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "registredDate")
+    @Column(name = "registered_date")
     private Date registredDate;
 
     public UUID getId() {
