@@ -2,64 +2,68 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponeDto;
+import com.pm.patientservice.exceptions.EmailAlreadyExistsException;
+import com.pm.patientservice.exceptions.PatientNotFoundException;
+import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.repository.PatientRepository;
-import com.pm.patientservice.utils.PatientConstants;
+import com.pm.patientservice.utils.DateUtils;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
+    private final BillingServiceGrpcClient billingServiceGrpcClient;
 
-    PatientServiceImpl(PatientRepository patientRepository) {
+    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient) {
         this.patientRepository = patientRepository;
+        this.billingServiceGrpcClient = billingServiceGrpcClient;
     }
 
 
     @Override
     public List<PatientResponeDto> getPatients() {
-        List<PatientResponeDto> response = null;
-        try {
-
-            List<Patient>patients = patientRepository.findAll();
-            System.out.println(patients.size());
-            if(!patients.isEmpty()) {
-                response = new ArrayList<PatientResponeDto>();
-
-                response = patients.stream().map(PatientMapper::toPatientResponeDto).toList();
-            } else {
-                System.err.println("Patient list is empty");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return  response;
+        List<Patient>patients = patientRepository.findAll();
+        return  patients.stream().map(PatientMapper::toPatientResponeDto).toList();
     }
 
     @Override
     public PatientResponeDto createPatient(PatientRequestDto patientRequestDto) {
-        PatientResponeDto response = null;
-        try {
-            Patient patient = PatientMapper.toPatient(patientRequestDto);
-            response = new PatientResponeDto();
-            if(patient != null) {
-                patientRepository.save(patient);
-                response = PatientMapper.toPatientResponeDto(patient);
-            } else {
-                response = new PatientResponeDto();
-                response.setStatus(PatientConstants.FAILURE);
-                System.err.println("Patient is null");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if(patientRepository.existsByEmail(patientRequestDto.getEmail())) {
+            throw new EmailAlreadyExistsException("A patient with same email already exists "
+                    + patientRequestDto.getEmail());
+        }
+        Patient patient = patientRepository.save(PatientMapper.toPatient(patientRequestDto));
+
+        billingServiceGrpcClient.createBillingAccount(patient.getId().toString(), patient.getName(), patient.getEmail());
+        return PatientMapper.toPatientResponeDto(patient);
+    }
+
+    @Override
+    public PatientResponeDto updatePatient(UUID id, PatientRequestDto patientRequestDto) {
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("patient not found with ID: " + id));
+        if(patientRepository.existsByEmailAndIdNot(patientRequestDto.getEmail(), id)) {
+            throw new EmailAlreadyExistsException("A patient with same email already exists "
+                    + patientRequestDto.getEmail());
         }
 
-        return response;
+        patient.setName(patientRequestDto.getName());
+        patient.setAddress(patientRequestDto.getAddress());
+        patient.setEmail(patientRequestDto.getEmail());
+        patient.setDateOfBirth(DateUtils.convertStringToDate(patientRequestDto.getDateOfBirth()));
+        patientRepository.save(patient);
+
+        return PatientMapper.toPatientResponeDto(patient);
     }
+
+    @Override
+    public void deletePatient(UUID id) {
+        patientRepository.deleteById(id);
+    }
+
 }

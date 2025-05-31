@@ -1,6 +1,7 @@
 package com.pm.patientservice.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class DateUtils {
@@ -31,5 +32,9 @@ public class DateUtils {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static LocalDateTime getCurrentLocalDateTime() {
+        return LocalDateTime.now();
     }
 }

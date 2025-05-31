@@ -6,7 +6,6 @@ public class PatientResponeDto {
     private String email;
     private String address;
     private String dateOfBirth;
-    private String status;
 
     public String getId() {
         return id;
@@ -48,11 +47,4 @@ public class PatientResponeDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
