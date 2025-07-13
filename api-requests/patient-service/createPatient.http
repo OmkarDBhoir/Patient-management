@@ -3,8 +3,8 @@ POST http://localhost:4000/patients/createPatient
 Content-Type: application/json
 
 {
-  "name": "omkar kafka test1",
-  "email": "omkar1212122@gmail.com",
+  "name": "omkar kafka test2",
+  "email": "kafka_test@gmail.com",
   "address": "Thane",
   "dateOfBirth": "2001-11-19",
   "registerDate": "2025-05-24"
