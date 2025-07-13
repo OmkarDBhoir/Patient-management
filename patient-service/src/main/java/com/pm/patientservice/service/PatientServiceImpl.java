@@ -44,6 +44,9 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = patientRepository.save(PatientMapper.toPatient(patientRequestDto));
 
         billingServiceGrpcClient.createBillingAccount(patient.getId().toString(), patient.getName(), patient.getEmail());
+
+        kafkaProducer.sendEvent(patient);
+
         return PatientMapper.toPatientResponeDto(patient);
     }
 
@@ -60,7 +63,6 @@ public class PatientServiceImpl implements PatientService {
         patient.setEmail(patientRequestDto.getEmail());
         patient.setDateOfBirth(DateUtils.convertStringToDate(patientRequestDto.getDateOfBirth()));
         patientRepository.save(patient);
-        kafkaProducer.sendEvent(patient);
 
         return PatientMapper.toPatientResponeDto(patient);
     }
