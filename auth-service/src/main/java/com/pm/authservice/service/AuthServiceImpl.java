@@ -3,6 +3,8 @@ package com.pm.authservice.service;
 import com.pm.authservice.dto.LoginRequestDTO;
 import com.pm.authservice.util.JwtUtil;
 import io.jsonwebtoken.JwtException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.Optional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
+    private final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -36,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
             jwtUtil.validateToken(token);
             return true;
         } catch (JwtException e)  {
-            e.printStackTrace();
+            log.error("Error validating token", e);
         }
 
         return false;

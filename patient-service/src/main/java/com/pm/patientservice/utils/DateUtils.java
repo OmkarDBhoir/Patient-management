@@ -1,10 +1,15 @@
 package com.pm.patientservice.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public class DateUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(DateUtils.class);
 
     private static final String[] COMMON_DATE_FORMATS = {"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM",};
 
@@ -16,7 +21,7 @@ public class DateUtils {
                 if(date != null) break;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error converting string to date", e);
         }
 
         return date;
@@ -29,7 +34,7 @@ public class DateUtils {
             date = sdf.parse(dateString);
             return date;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error converting string to date:", e);
         }
         return date;
     }
