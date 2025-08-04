@@ -224,7 +224,7 @@ public class PatientManagementDeployment extends Stack {
                 .synthesizer(new BootstraplessSynthesizer())
                 .build();
 
-        new PatientManagementDeployment(app, "localstack", props);
+        new PatientManagementDeployment(app, "PatientManagementDeployment", props);
         app.synth();
 
         System.out.println("App synthesizing in progress...");

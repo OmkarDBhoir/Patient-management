@@ -39,7 +39,7 @@
      },
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet1"
      }
     ],
     "VpcId": {
@@ -53,7 +53,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet1"
      }
     ],
     "VpcId": {
@@ -94,7 +94,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet1"
      }
     ]
    }
@@ -114,7 +114,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet1"
      }
     ]
    },
@@ -147,7 +147,7 @@
      },
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet2"
      }
     ],
     "VpcId": {
@@ -161,7 +161,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet2"
      }
     ],
     "VpcId": {
@@ -202,7 +202,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet2"
      }
     ]
    }
@@ -222,7 +222,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PublicSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PublicSubnet2"
      }
     ]
    },
@@ -255,7 +255,7 @@
      },
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PrivateSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PrivateSubnet1"
      }
     ],
     "VpcId": {
@@ -269,7 +269,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PrivateSubnet1"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PrivateSubnet1"
      }
     ],
     "VpcId": {
@@ -324,7 +324,7 @@
      },
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PrivateSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PrivateSubnet2"
      }
     ],
     "VpcId": {
@@ -338,7 +338,7 @@
     "Tags": [
      {
       "Key": "Name",
-      "Value": "localstack/PatientManagementVPC/PrivateSubnet2"
+      "Value": "PatientManagementDeployment/PatientManagementVPC/PrivateSubnet2"
      }
     ],
     "VpcId": {
@@ -421,7 +421,7 @@
     }
    }
   },
-  "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb": {
+  "PatientManagementDeploymentAuthServiceDBSecret41737F5D3fdaad7efa858a3daf9490cf0a702aeb": {
    "Type": "AWS::SecretsManager::Secret",
    "Properties": {
     "Description": {
@@ -449,7 +449,7 @@
    "Type": "AWS::SecretsManager::SecretTargetAttachment",
    "Properties": {
     "SecretId": {
-     "Ref": "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb"
+     "Ref": "PatientManagementDeploymentAuthServiceDBSecret41737F5D3fdaad7efa858a3daf9490cf0a702aeb"
     },
     "TargetId": {
      "Ref": "AuthServiceDBC6B688BA"
@@ -475,7 +475,7 @@
       [
        "{{resolve:secretsmanager:",
        {
-        "Ref": "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb"
+        "Ref": "PatientManagementDeploymentAuthServiceDBSecret41737F5D3fdaad7efa858a3daf9490cf0a702aeb"
        },
        ":SecretString:password::}}"
       ]
@@ -525,7 +525,7 @@
     }
    }
   },
-  "localstackPatientServiceDBSecret20E0A9443fdaad7efa858a3daf9490cf0a702aeb": {
+  "PatientManagementDeploymentPatientServiceDBSecret2B469D4A3fdaad7efa858a3daf9490cf0a702aeb": {
    "Type": "AWS::SecretsManager::Secret",
    "Properties": {
     "Description": {
@@ -553,7 +553,7 @@
    "Type": "AWS::SecretsManager::SecretTargetAttachment",
    "Properties": {
     "SecretId": {
-     "Ref": "localstackPatientServiceDBSecret20E0A9443fdaad7efa858a3daf9490cf0a702aeb"
+     "Ref": "PatientManagementDeploymentPatientServiceDBSecret2B469D4A3fdaad7efa858a3daf9490cf0a702aeb"
     },
     "TargetId": {
      "Ref": "PatientServiceDBB84F9BF9"
@@ -579,7 +579,7 @@
       [
        "{{resolve:secretsmanager:",
        {
-        "Ref": "localstackPatientServiceDBSecret20E0A9443fdaad7efa858a3daf9490cf0a702aeb"
+        "Ref": "PatientManagementDeploymentPatientServiceDBSecret2B469D4A3fdaad7efa858a3daf9490cf0a702aeb"
        },
        ":SecretString:password::}}"
       ]
@@ -794,7 +794,7 @@
       "Arn"
      ]
     },
-    "Family": "localstackAuthServiceTassk601E8AD6",
+    "Family": "PatientManagementDeploymentAuthServiceTasskF10563F8",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -909,7 +909,7 @@
    "DependsOn": [
     "AuthServiceDBC6B688BA",
     "AuthServiceDBSecretAttachmentF30406A9",
-    "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb",
+    "PatientManagementDeploymentAuthServiceDBSecret41737F5D3fdaad7efa858a3daf9490cf0a702aeb",
     "AuthServiceDBSecurityGroupBE6D28EB",
     "AuthServiceDBSubnetGroupCFE5A552",
     "AuthServiceDBHealthcheck",
@@ -919,7 +919,7 @@
   "AuthServiceSecurityGroup67F2FA7D": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "localstack/AuthService/SecurityGroup",
+    "GroupDescription": "PatientManagementDeployment/AuthService/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -934,7 +934,7 @@
    "DependsOn": [
     "AuthServiceDBC6B688BA",
     "AuthServiceDBSecretAttachmentF30406A9",
-    "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb",
+    "PatientManagementDeploymentAuthServiceDBSecret41737F5D3fdaad7efa858a3daf9490cf0a702aeb",
     "AuthServiceDBSecurityGroupBE6D28EB",
     "AuthServiceDBSubnetGroupCFE5A552",
     "AuthServiceDBHealthcheck",
@@ -1005,7 +1005,7 @@
       "Arn"
      ]
     },
-    "Family": "localstackBillingServiceTassk1D71DA24",
+    "Family": "PatientManagementDeploymentBillingServiceTassk29E457EB",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1124,7 +1124,7 @@
   "BillingServiceSecurityGroup3783AD35": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "localstack/BillingService/SecurityGroup",
+    "GroupDescription": "PatientManagementDeployment/BillingService/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1199,7 +1199,7 @@
       "Arn"
      ]
     },
-    "Family": "localstackAnalyticsServiceTasskFC64F665",
+    "Family": "PatientManagementDeploymentAnalyticsServiceTassk4C36ED55",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1319,7 +1319,7 @@
   "AnalyticsServiceSecurityGroupBA6AE98A": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "localstack/AnalyticsService/SecurityGroup",
+    "GroupDescription": "PatientManagementDeployment/AnalyticsService/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1459,7 +1459,7 @@
       "Arn"
      ]
     },
-    "Family": "localstackPatientServiceTasskFFEEE2ED",
+    "Family": "PatientManagementDeploymentPatientServiceTassk27E6F297",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1577,7 +1577,7 @@
     "MskCluster",
     "PatientServiceDBB84F9BF9",
     "PatientServiceDBSecretAttachment90D77B03",
-    "localstackPatientServiceDBSecret20E0A9443fdaad7efa858a3daf9490cf0a702aeb",
+    "PatientManagementDeploymentPatientServiceDBSecret2B469D4A3fdaad7efa858a3daf9490cf0a702aeb",
     "PatientServiceDBSecurityGroup6B97C0E5",
     "PatientServiceDBSubnetGroupCED49D16",
     "PatientServiceDBHealthcheck",
@@ -1587,7 +1587,7 @@
   "PatientServiceSecurityGroup547BE1F2": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "localstack/PatientService/SecurityGroup",
+    "GroupDescription": "PatientManagementDeployment/PatientService/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1605,7 +1605,7 @@
     "MskCluster",
     "PatientServiceDBB84F9BF9",
     "PatientServiceDBSecretAttachment90D77B03",
-    "localstackPatientServiceDBSecret20E0A9443fdaad7efa858a3daf9490cf0a702aeb",
+    "PatientManagementDeploymentPatientServiceDBSecret2B469D4A3fdaad7efa858a3daf9490cf0a702aeb",
     "PatientServiceDBSecurityGroup6B97C0E5",
     "PatientServiceDBSubnetGroupCED49D16",
     "PatientServiceDBHealthcheck",
@@ -1675,7 +1675,7 @@
       "Arn"
      ]
     },
-    "Family": "localstackApiGatewayTasskDefination27C83B23",
+    "Family": "PatientManagementDeploymentApiGatewayTasskDefination022B2C24",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1782,7 +1782,7 @@
   "APIGatewayServiceLBSecurityGroup8524BFD1": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "Automatically created Security Group for ELB localstackAPIGatewayServiceLB0192615A",
+    "GroupDescription": "Automatically created Security Group for ELB PatientManagementDeploymentAPIGatewayServiceLB66C6C659",
     "SecurityGroupIngress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1797,7 +1797,7 @@
     }
    }
   },
-  "APIGatewayServiceLBSecurityGrouptolocalstackAPIGatewayServiceSecurityGroup37054EEE4004CAF8FB32": {
+  "APIGatewayServiceLBSecurityGrouptoPatientManagementDeploymentAPIGatewayServiceSecurityGroup7158689440042383217E": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "Load balancer to target",
@@ -1916,7 +1916,7 @@
   "APIGatewayServiceSecurityGroup98F3B93B": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "localstack/APIGatewayService/Service/SecurityGroup",
+    "GroupDescription": "PatientManagementDeployment/APIGatewayService/Service/SecurityGroup",
     "SecurityGroupEgress": [
      {
       "CidrIp": "0.0.0.0/0",
@@ -1932,7 +1932,7 @@
     "ApiGatewayTasskDefinationTaskRole48245C3D"
    ]
   },
-  "APIGatewayServiceSecurityGroupfromlocalstackAPIGatewayServiceLBSecurityGroup32B4CA424004CA85E4CD": {
+  "APIGatewayServiceSecurityGroupfromPatientManagementDeploymentAPIGatewayServiceLBSecurityGroup5DD9713C40040775B3AE": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
     "Description": "Load balancer to target",
