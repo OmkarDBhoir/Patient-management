@@ -660,7 +660,7 @@
     },
     "ClusterName": "kafka-cluster",
     "KafkaVersion": "2.8.0",
-    "NumberOfBrokerNodes": 1
+    "NumberOfBrokerNodes": 2
    }
   },
   "PatientManagementCluster98E10F8D": {
@@ -675,7 +675,7 @@
     }
    }
   },
-  "AuthServiceTasskTaskRole6E5F0954": {
+  "AuthServiceTaskTaskRoleE466B974": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -692,7 +692,7 @@
     }
    }
   },
-  "AuthServiceTasskB02B259D": {
+  "AuthServiceTask82E6680D": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -712,7 +712,7 @@
          "Fn::Join": [
           "",
           [
-           "jdbc:postgres://",
+           "jdbc:postgresql://",
            {
             "Fn::GetAtt": [
              "AuthServiceDBC6B688BA",
@@ -752,7 +752,7 @@
        },
        {
         "Name": "SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT",
-        "Value": "6000"
+        "Value": "60000"
        },
        {
         "Name": "SPRING_DATASOURCE_USERNAME",
@@ -760,7 +760,7 @@
        },
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4515"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
@@ -790,11 +790,11 @@
     "Cpu": "256",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "AuthServiceTasskExecutionRole71C800F2",
+      "AuthServiceTaskExecutionRoleA1258495",
       "Arn"
      ]
     },
-    "Family": "PatientManagementDeploymentAuthServiceTasskF10563F8",
+    "Family": "PatientManagementDeploymentAuthServiceTask8213B869",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -802,13 +802,13 @@
     ],
     "TaskRoleArn": {
      "Fn::GetAtt": [
-      "AuthServiceTasskTaskRole6E5F0954",
+      "AuthServiceTaskTaskRoleE466B974",
       "Arn"
      ]
     }
    }
   },
-  "AuthServiceTasskExecutionRole71C800F2": {
+  "AuthServiceTaskExecutionRoleA1258495": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -825,7 +825,7 @@
     }
    }
   },
-  "AuthServiceTasskExecutionRoleDefaultPolicy15E36C87": {
+  "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -846,10 +846,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "AuthServiceTasskExecutionRoleDefaultPolicy15E36C87",
+    "PolicyName": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3",
     "Roles": [
      {
-      "Ref": "AuthServiceTasskExecutionRole71C800F2"
+      "Ref": "AuthServiceTaskExecutionRoleA1258495"
      }
     ]
    }
@@ -903,7 +903,7 @@
     },
     "ServiceName": "auth-service",
     "TaskDefinition": {
-     "Ref": "AuthServiceTasskB02B259D"
+     "Ref": "AuthServiceTask82E6680D"
     }
    },
    "DependsOn": [
@@ -913,7 +913,7 @@
     "AuthServiceDBSecurityGroupBE6D28EB",
     "AuthServiceDBSubnetGroupCFE5A552",
     "AuthServiceDBHealthcheck",
-    "AuthServiceTasskTaskRole6E5F0954"
+    "AuthServiceTaskTaskRoleE466B974"
    ]
   },
   "AuthServiceSecurityGroup67F2FA7D": {
@@ -938,10 +938,10 @@
     "AuthServiceDBSecurityGroupBE6D28EB",
     "AuthServiceDBSubnetGroupCFE5A552",
     "AuthServiceDBHealthcheck",
-    "AuthServiceTasskTaskRole6E5F0954"
+    "AuthServiceTaskTaskRoleE466B974"
    ]
   },
-  "BillingServiceTasskTaskRoleC84D91F6": {
+  "BillingServiceTaskTaskRole7A547BBF": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -958,7 +958,7 @@
     }
    }
   },
-  "BillingServiceTassk02D5F034": {
+  "BillingServiceTask30D9C66E": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -966,7 +966,7 @@
       "Environment": [
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4515"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
@@ -1001,11 +1001,11 @@
     "Cpu": "256",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "BillingServiceTasskExecutionRoleA2D99D3D",
+      "BillingServiceTaskExecutionRole11FE8DE2",
       "Arn"
      ]
     },
-    "Family": "PatientManagementDeploymentBillingServiceTassk29E457EB",
+    "Family": "PatientManagementDeploymentBillingServiceTask920324CD",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1013,13 +1013,13 @@
     ],
     "TaskRoleArn": {
      "Fn::GetAtt": [
-      "BillingServiceTasskTaskRoleC84D91F6",
+      "BillingServiceTaskTaskRole7A547BBF",
       "Arn"
      ]
     }
    }
   },
-  "BillingServiceTasskExecutionRoleA2D99D3D": {
+  "BillingServiceTaskExecutionRole11FE8DE2": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1036,7 +1036,7 @@
     }
    }
   },
-  "BillingServiceTasskExecutionRoleDefaultPolicy11E01B76": {
+  "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1057,10 +1057,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "BillingServiceTasskExecutionRoleDefaultPolicy11E01B76",
+    "PolicyName": "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9",
     "Roles": [
      {
-      "Ref": "BillingServiceTasskExecutionRoleA2D99D3D"
+      "Ref": "BillingServiceTaskExecutionRole11FE8DE2"
      }
     ]
    }
@@ -1114,11 +1114,11 @@
     },
     "ServiceName": "billing-service",
     "TaskDefinition": {
-     "Ref": "BillingServiceTassk02D5F034"
+     "Ref": "BillingServiceTask30D9C66E"
     }
    },
    "DependsOn": [
-    "BillingServiceTasskTaskRoleC84D91F6"
+    "BillingServiceTaskTaskRole7A547BBF"
    ]
   },
   "BillingServiceSecurityGroup3783AD35": {
@@ -1137,10 +1137,10 @@
     }
    },
    "DependsOn": [
-    "BillingServiceTasskTaskRoleC84D91F6"
+    "BillingServiceTaskTaskRole7A547BBF"
    ]
   },
-  "AnalyticsServiceTasskTaskRole6576D983": {
+  "AnalyticsServiceTaskTaskRole1ABB10CB": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1157,7 +1157,7 @@
     }
    }
   },
-  "AnalyticsServiceTassk6B36F941": {
+  "AnalyticsServiceTaskC3AFBC47": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -1165,24 +1165,24 @@
       "Environment": [
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4515"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        }
       ],
       "Essential": true,
-      "Image": "analytics-serivce",
+      "Image": "analytics-service",
       "LogConfiguration": {
        "LogDriver": "awslogs",
        "Options": {
         "awslogs-group": {
          "Ref": "AnalyticsServiceLogGroupBD82F12A"
         },
-        "awslogs-stream-prefix": "analytics-serivce",
+        "awslogs-stream-prefix": "analytics-service",
         "awslogs-region": {
          "Ref": "AWS::Region"
         }
        }
       },
-      "Name": "analytics-serivceContainer",
+      "Name": "analytics-serviceContainer",
       "PortMappings": [
        {
         "ContainerPort": 4002,
@@ -1195,11 +1195,11 @@
     "Cpu": "256",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "AnalyticsServiceTasskExecutionRoleA6F90F53",
+      "AnalyticsServiceTaskExecutionRoleBAF654B2",
       "Arn"
      ]
     },
-    "Family": "PatientManagementDeploymentAnalyticsServiceTassk4C36ED55",
+    "Family": "PatientManagementDeploymentAnalyticsServiceTaskA73F3115",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1207,13 +1207,13 @@
     ],
     "TaskRoleArn": {
      "Fn::GetAtt": [
-      "AnalyticsServiceTasskTaskRole6576D983",
+      "AnalyticsServiceTaskTaskRole1ABB10CB",
       "Arn"
      ]
     }
    }
   },
-  "AnalyticsServiceTasskExecutionRoleA6F90F53": {
+  "AnalyticsServiceTaskExecutionRoleBAF654B2": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1230,7 +1230,7 @@
     }
    }
   },
-  "AnalyticsServiceTasskExecutionRoleDefaultPolicyC9FBD756": {
+  "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1251,10 +1251,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "AnalyticsServiceTasskExecutionRoleDefaultPolicyC9FBD756",
+    "PolicyName": "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928",
     "Roles": [
      {
-      "Ref": "AnalyticsServiceTasskExecutionRoleA6F90F53"
+      "Ref": "AnalyticsServiceTaskExecutionRoleBAF654B2"
      }
     ]
    }
@@ -1262,7 +1262,7 @@
   "AnalyticsServiceLogGroupBD82F12A": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
-    "LogGroupName": "/ecs/analytics-serivce",
+    "LogGroupName": "/ecs/analytics-service",
     "RetentionInDays": 1
    },
    "UpdateReplacePolicy": "Delete",
@@ -1306,13 +1306,13 @@
       ]
      }
     },
-    "ServiceName": "analytics-serivce",
+    "ServiceName": "analytics-service",
     "TaskDefinition": {
-     "Ref": "AnalyticsServiceTassk6B36F941"
+     "Ref": "AnalyticsServiceTaskC3AFBC47"
     }
    },
    "DependsOn": [
-    "AnalyticsServiceTasskTaskRole6576D983",
+    "AnalyticsServiceTaskTaskRole1ABB10CB",
     "MskCluster"
    ]
   },
@@ -1332,11 +1332,11 @@
     }
    },
    "DependsOn": [
-    "AnalyticsServiceTasskTaskRole6576D983",
+    "AnalyticsServiceTaskTaskRole1ABB10CB",
     "MskCluster"
    ]
   },
-  "PatientServiceTasskTaskRole7206EF7E": {
+  "PatientServiceTaskTaskRole4FB5B4E2": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1353,7 +1353,7 @@
     }
    }
   },
-  "PatientServiceTassk2BAC1A81": {
+  "PatientServiceTaskF865B565": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
@@ -1373,7 +1373,7 @@
          "Fn::Join": [
           "",
           [
-           "jdbc:postgres://",
+           "jdbc:postgresql://",
            {
             "Fn::GetAtt": [
              "PatientServiceDBB84F9BF9",
@@ -1413,7 +1413,7 @@
        },
        {
         "Name": "SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT",
-        "Value": "6000"
+        "Value": "60000"
        },
        {
         "Name": "SPRING_DATASOURCE_USERNAME",
@@ -1421,7 +1421,7 @@
        },
        {
         "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4515"
+        "Value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
        },
        {
         "Name": "BILLING_SERVICE_ADDRESS",
@@ -1455,11 +1455,11 @@
     "Cpu": "256",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "PatientServiceTasskExecutionRole4569731C",
+      "PatientServiceTaskExecutionRole3782903B",
       "Arn"
      ]
     },
-    "Family": "PatientManagementDeploymentPatientServiceTassk27E6F297",
+    "Family": "PatientManagementDeploymentPatientServiceTaskECA16356",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1467,13 +1467,13 @@
     ],
     "TaskRoleArn": {
      "Fn::GetAtt": [
-      "PatientServiceTasskTaskRole7206EF7E",
+      "PatientServiceTaskTaskRole4FB5B4E2",
       "Arn"
      ]
     }
    }
   },
-  "PatientServiceTasskExecutionRole4569731C": {
+  "PatientServiceTaskExecutionRole3782903B": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1490,7 +1490,7 @@
     }
    }
   },
-  "PatientServiceTasskExecutionRoleDefaultPolicyFC0BF9BB": {
+  "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1511,10 +1511,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "PatientServiceTasskExecutionRoleDefaultPolicyFC0BF9BB",
+    "PolicyName": "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E",
     "Roles": [
      {
-      "Ref": "PatientServiceTasskExecutionRole4569731C"
+      "Ref": "PatientServiceTaskExecutionRole3782903B"
      }
     ]
    }
@@ -1568,7 +1568,7 @@
     },
     "ServiceName": "patient-service",
     "TaskDefinition": {
-     "Ref": "PatientServiceTassk2BAC1A81"
+     "Ref": "PatientServiceTaskF865B565"
     }
    },
    "DependsOn": [
@@ -1581,7 +1581,7 @@
     "PatientServiceDBSecurityGroup6B97C0E5",
     "PatientServiceDBSubnetGroupCED49D16",
     "PatientServiceDBHealthcheck",
-    "PatientServiceTasskTaskRole7206EF7E"
+    "PatientServiceTaskTaskRole4FB5B4E2"
    ]
   },
   "PatientServiceSecurityGroup547BE1F2": {
@@ -1609,10 +1609,10 @@
     "PatientServiceDBSecurityGroup6B97C0E5",
     "PatientServiceDBSubnetGroupCED49D16",
     "PatientServiceDBHealthcheck",
-    "PatientServiceTasskTaskRole7206EF7E"
+    "PatientServiceTaskTaskRole4FB5B4E2"
    ]
   },
-  "ApiGatewayTasskDefinationTaskRole48245C3D": {
+  "ApiGatewayTaskDefinationTaskRole4DA490FA": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1629,19 +1629,19 @@
     }
    }
   },
-  "ApiGatewayTasskDefinationB31D74F2": {
+  "ApiGatewayTaskDefinationB2F1F113": {
    "Type": "AWS::ECS::TaskDefinition",
    "Properties": {
     "ContainerDefinitions": [
      {
       "Environment": [
        {
-        "Name": "SPRING_PROFILE_ACTIVE",
-        "Value": "prod"
-       },
-       {
         "Name": "AUTH_SERVICE_URL",
         "Value": "http://host.docker.internal:4005"
+       },
+       {
+        "Name": "SPRING_PROFILE_ACTIVE",
+        "Value": "prod"
        }
       ],
       "Essential": true,
@@ -1671,11 +1671,11 @@
     "Cpu": "256",
     "ExecutionRoleArn": {
      "Fn::GetAtt": [
-      "ApiGatewayTasskDefinationExecutionRole356FA962",
+      "ApiGatewayTaskDefinationExecutionRoleB579EE7E",
       "Arn"
      ]
     },
-    "Family": "PatientManagementDeploymentApiGatewayTasskDefination022B2C24",
+    "Family": "PatientManagementDeploymentApiGatewayTaskDefinationDE0D8236",
     "Memory": "512",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
@@ -1683,13 +1683,13 @@
     ],
     "TaskRoleArn": {
      "Fn::GetAtt": [
-      "ApiGatewayTasskDefinationTaskRole48245C3D",
+      "ApiGatewayTaskDefinationTaskRole4DA490FA",
       "Arn"
      ]
     }
    }
   },
-  "ApiGatewayTasskDefinationExecutionRole356FA962": {
+  "ApiGatewayTaskDefinationExecutionRoleB579EE7E": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1706,7 +1706,7 @@
     }
    }
   },
-  "ApiGatewayTasskDefinationExecutionRoleDefaultPolicy8E1F9714": {
+  "ApiGatewayTaskDefinationExecutionRoleDefaultPolicy2770A42A": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1727,10 +1727,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ApiGatewayTasskDefinationExecutionRoleDefaultPolicy8E1F9714",
+    "PolicyName": "ApiGatewayTaskDefinationExecutionRoleDefaultPolicy2770A42A",
     "Roles": [
      {
-      "Ref": "ApiGatewayTasskDefinationExecutionRole356FA962"
+      "Ref": "ApiGatewayTaskDefinationExecutionRoleB579EE7E"
      }
     ]
    }
@@ -1904,13 +1904,13 @@
     },
     "ServiceName": "api-gateway",
     "TaskDefinition": {
-     "Ref": "ApiGatewayTasskDefinationB31D74F2"
+     "Ref": "ApiGatewayTaskDefinationB2F1F113"
     }
    },
    "DependsOn": [
     "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70",
     "APIGatewayServiceLBPublicListenerD6FA7F47",
-    "ApiGatewayTasskDefinationTaskRole48245C3D"
+    "ApiGatewayTaskDefinationTaskRole4DA490FA"
    ]
   },
   "APIGatewayServiceSecurityGroup98F3B93B": {
@@ -1929,7 +1929,7 @@
     }
    },
    "DependsOn": [
-    "ApiGatewayTasskDefinationTaskRole48245C3D"
+    "ApiGatewayTaskDefinationTaskRole4DA490FA"
    ]
   },
   "APIGatewayServiceSecurityGroupfromPatientManagementDeploymentAPIGatewayServiceLBSecurityGroup5DD9713C40040775B3AE": {
@@ -1953,7 +1953,7 @@
     "ToPort": 4004
    },
    "DependsOn": [
-    "ApiGatewayTasskDefinationTaskRole48245C3D"
+    "ApiGatewayTaskDefinationTaskRole4DA490FA"
    ]
   }
  },

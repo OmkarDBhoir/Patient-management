@@ -37,7 +37,8 @@ public class PatientManagementDeployment extends Stack {
 
         this.ecsCluster = createEcsCluster();
 
-        FargateService authService = createFargateService("AuthService", "auth-service",
+        FargateService authService = createFargateService("AuthService",
+                "auth-service",
                 List.of(4005),
                 authServiceDb,
                 Map.of("JWT_SECRET", "mSgfKdWe3sYhq6rjYbw4nX4h2UhGmZC88CMIse9FfCPXYsOpt0epDzpnyE2JI6KEIo2rRVx0IaMiSIf6p26XuT1DpgNESQoeHjjT8uqWwU8jEvSxZssAyP8e2hjjSSLk16oNTQZlYbNMJhMZM3TpfEuoeqdleWXiHIDjLDPciJpoRBzIlUOMkblkyeb20tUeda1BC0q2bYbELgoePHEpy7qy72SNMsxob2oTJYg5lBvk0Ff7fidXBvtcNNd5kRP8"));
@@ -50,7 +51,7 @@ public class PatientManagementDeployment extends Stack {
                 null,
                 null);
 
-        FargateService analyticsService = createFargateService("AnalyticsService", "analytics-serivce",
+        FargateService analyticsService = createFargateService("AnalyticsService", "analytics-service",
                 List.of(4002),
                 null,
                 null);
@@ -106,7 +107,7 @@ public class PatientManagementDeployment extends Stack {
         return CfnCluster.Builder.create(this, "MskCluster")
                 .clusterName("kafka-cluster")
                 .kafkaVersion("2.8.0")
-                .numberOfBrokerNodes(1)
+                .numberOfBrokerNodes(2)
                 .brokerNodeGroupInfo(CfnCluster.BrokerNodeGroupInfoProperty.builder()
                         .instanceType("kafka.m5.xlarge")
                         .clientSubnets(vpc.getPrivateSubnets().stream()
@@ -127,7 +128,7 @@ public class PatientManagementDeployment extends Stack {
     }
 
     private FargateService createFargateService(String id, String imageName, List<Integer> ports, DatabaseInstance db, Map<String, String> additionalEnvVars) {
-        FargateTaskDefinition taskDefinition = FargateTaskDefinition.Builder.create(this, id + "Tassk")
+        FargateTaskDefinition taskDefinition = FargateTaskDefinition.Builder.create(this, id + "Task")
                 .cpu(256)
                 .memoryLimitMiB(512)
                 .build();
@@ -150,14 +151,14 @@ public class PatientManagementDeployment extends Stack {
                         .build()));
 
         Map<String, String> envVars = new HashMap<String, String>();
-        envVars.put("SPRING_KAFKA_BOOTSTRAP_SERVERS", "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4515");
+        envVars.put("SPRING_KAFKA_BOOTSTRAP_SERVERS", "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512");
 
         if(additionalEnvVars != null) {
             envVars.putAll(additionalEnvVars);
         }
 
         if(db != null) {
-            envVars.put("SPRING_DATASOURCE_URL", "jdbc:postgres://%s:%s/%s-db".formatted(
+            envVars.put("SPRING_DATASOURCE_URL", "jdbc:postgresql://%s:%s/%s-db".formatted(
                     db.getDbInstanceEndpointAddress(),
                     db.getDbInstanceEndpointPort(),
                     imageName
@@ -167,7 +168,7 @@ public class PatientManagementDeployment extends Stack {
             envVars.put("SPRING_DATASOURCE_PASSWORD", db.getSecret().secretValueFromJson("password").toString());
             envVars.put("SPRING_JPA_HIBERNATE_DDL_AUTO", " update");
             envVars.put("SPRING_SQL_INIT_MODE", "always");
-            envVars.put("SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT", "6000");
+            envVars.put("SPRING_DATASOURCE_HIKARI_INITIALIZATION_FAIL_TIMEOUT", "60000");
         }
 
         containerOptions.environment(envVars);
@@ -182,7 +183,7 @@ public class PatientManagementDeployment extends Stack {
     }
 
     private void createApiGatewayService() {
-        FargateTaskDefinition taskDefinition = FargateTaskDefinition.Builder.create(this, "ApiGatewayTasskDefination")
+        FargateTaskDefinition taskDefinition = FargateTaskDefinition.Builder.create(this, "ApiGatewayTaskDefination")
                 .cpu(256)
                 .memoryLimitMiB(512)
                 .build();
