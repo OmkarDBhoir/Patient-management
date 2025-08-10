@@ -9,7 +9,7 @@ import AppointmentCalendar from "../Calendar/Calendar";
 import IconCard from "../Cards/IconCard";
 
 const Dashboard: React.FC = () => {
-    const [dashboardStats, setDashboardStats] = useState<Stats>({
+    const [dashboardStats, setDashboardStats] = useState<Stats | undefined>({
         patients: 1.250,
         appointments: 120,
         invoices: 50,
@@ -55,10 +55,10 @@ const Dashboard: React.FC = () => {
         <>
             <div className="flex flex-col p-8 pt-0 gap-5">
                 <div className="flex gap-8">
-                    <IconCard icon={userIcon} title="Patients" result={dashboardStats.patients.toString()} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
-                    <IconCard icon={appointmentIcon} title="Appointments" result={dashboardStats.appointments.toString()} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
-                    <IconCard icon={invoicesIcon} title="Invoices" result={dashboardStats.invoices.toString()} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
-                    <IconCard icon={dollerIcon} title="Total Revenue" result={BaseConstants.doller_symbol + dashboardStats.totalRevenue.toString()} className="flex justify-center pl-4 gap-3 w-[30%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
+                    <IconCard icon={userIcon} title="Patients" result={dashboardStats?.patients.toString() || "NA"} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
+                    <IconCard icon={appointmentIcon} title="Appointments" result={dashboardStats?.appointments.toString() || "NA"} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
+                    <IconCard icon={invoicesIcon} title="Invoices" result={dashboardStats?.invoices.toString() || "NA"} className="flex justify-center pl-4 gap-3 w-[15%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
+                    <IconCard icon={dollerIcon} title="Total Revenue" result={BaseConstants.doller_symbol + dashboardStats?.totalRevenue.toString() || "NA"} className="flex justify-center pl-4 gap-3 w-[30%] h-[170px] border-2 rounded-lg" iconClassName="w-[45px] h-[45px]" titleClassName="font-semibold text-[#1E252F] text-[15px]" resultClassName="font-semibold text-[#1E252F] text-[22.5px]" />
                 </div>
                 <div className="flex gap-10">
                     <div className="relative overflow-x-auto w-[50%] border-2 rounded-lg">

@@ -1,16 +1,3 @@
-
-
-export interface CardType {
-    icon: string;
-    title: string;
-    result: string;
-    className?: string;
-    iconClassName?: string;
-    titleClassName?: string;
-    resultClassName?: string;
-    style?: React.CSSProperties | undefined
-}
-
 export interface Stats {
     patients: number;
     appointments: number;

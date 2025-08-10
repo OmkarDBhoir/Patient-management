@@ -1,7 +1,6 @@
-import { CardType } from "../../pojos/Dashboard.pojos";
+import { IconCardType } from "../../pojos/CardPojos";
 
-
-const IconCard: React.FC<CardType> = ({ title, icon, result, className, iconClassName, titleClassName, resultClassName, style }) => {
+const IconCard: React.FC<IconCardType> = ({ title, icon, result, className, iconClassName, titleClassName, resultClassName, style }) => {
     return (
         <>
             <div className={`flex flex-col ${className}`} style={style}>
