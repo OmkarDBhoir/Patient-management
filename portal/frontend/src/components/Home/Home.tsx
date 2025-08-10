@@ -9,6 +9,7 @@ import patients from '../../assets/patients.png'
 import { navs } from "../../pojos/NavbarPojos";
 import TopNavbar from "../Navbar/TopNavBar";
 import doctor_profile from '../../assets/doctor_profile.png'
+import Patients from "../Patients/Patients";
 
 interface User {
     name: string;
@@ -33,6 +34,8 @@ const Home: React.FC = () => {
         switch (active) {
             case 0:
                 return <Dashboard />
+            case 1:
+                return <Patients />
             default:
                 return <><div>default</div></>
         }
