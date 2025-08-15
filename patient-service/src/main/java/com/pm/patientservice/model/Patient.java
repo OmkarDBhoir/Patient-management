@@ -38,6 +38,14 @@ public class Patient {
     @Column(name = "registered_date")
     private Date registredDate;
 
+    @NotNull
+    @Column(name = "age")
+    private int age;
+
+    @NotNull
+    @Column(name = "gender")
+    private String gender;
+
     public UUID getId() {
         return id;
     }
@@ -84,5 +92,21 @@ public class Patient {
 
     public void setRegistredDate(Date registredDate) {
         this.registredDate = registredDate;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

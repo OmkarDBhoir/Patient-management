@@ -2,7 +2,9 @@ package com.pm.patientservice.mapper;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponeDto;
+import com.pm.patientservice.dto.RecentPatientDtlsResponseDto;
 import com.pm.patientservice.model.Patient;
+import com.pm.patientservice.model.RecentlyVisitedPatient;
 import com.pm.patientservice.utils.DateUtils;
 import com.pm.patientservice.utils.PatientConstants;
 
@@ -32,5 +34,16 @@ public class PatientMapper {
         patient.setDateOfBirth(DateUtils.convertStringToDate(patientRequestDto.getDateOfBirth()));
         patient.setRegistredDate(DateUtils.convertStringToDate(patientRequestDto.getRegisterDate()));
         return patient;
+    }
+
+    public static RecentPatientDtlsResponseDto toRecentPatientDtlsResponseDto(RecentlyVisitedPatient patient) {
+        RecentPatientDtlsResponseDto recentPatientDtlsResponseDto = new RecentPatientDtlsResponseDto();
+
+        recentPatientDtlsResponseDto.setName(patient.getPatient().getName());
+        recentPatientDtlsResponseDto.setAge(String.valueOf(patient.getPatient().getAge()));
+        recentPatientDtlsResponseDto.setGender(patient.getPatient().getGender());
+        recentPatientDtlsResponseDto.setLastVisit(DateUtils.getStringFromDate(patient.getVisitDate()));
+
+        return recentPatientDtlsResponseDto;
     }
 }

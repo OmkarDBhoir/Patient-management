@@ -2,6 +2,7 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponeDto;
+import com.pm.patientservice.dto.RecentPatientDtlsResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface PatientService {
     public PatientResponeDto updatePatient(UUID id, PatientRequestDto patient);
 
     public void deletePatient(UUID id);
+
+    public List<RecentPatientDtlsResponseDto> getRecentPatients();
 }

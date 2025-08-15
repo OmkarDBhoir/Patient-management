@@ -7,47 +7,20 @@ import { patientsDtls, Stats } from "../../pojos/Dashboard.pojos";
 import { BaseConstants } from "../../Utils/BaseConstants";
 import AppointmentCalendar from "../Calendar/Calendar";
 import IconCard from "../Cards/IconCard";
+import { RefreshIconBlue } from '../../assets/Icons';
 
-const Dashboard: React.FC = () => {
+interface DashbaordProps {
+    setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+    recentPatients: patientsDtls[];
+}
+
+const Dashboard: React.FC<DashbaordProps> = ({ recentPatients, setRefresh }) => {
     const [dashboardStats, setDashboardStats] = useState<Stats | undefined>({
         patients: 1.250,
         appointments: 120,
         invoices: 50,
         totalRevenue: 85000
     })
-
-    const [patients, setPatients] = useState<patientsDtls[]>([
-        {
-            name: "Jenny Willson",
-            age: "45",
-            gender: "Female",
-            lastVisit: "01/23/2024"
-        },
-        {
-            name: "Darrell Steward",
-            age: "56",
-            gender: "Male",
-            lastVisit: "01/20/2024"
-        },
-        {
-            name: "Esther Howard",
-            age: "52",
-            gender: "Female",
-            lastVisit: "01/13/2024"
-        },
-        {
-            name: "Cody Fisher",
-            age: "38",
-            gender: "Male",
-            lastVisit: "01/20/2024"
-        },
-        {
-            name: "Jarome Bell",
-            age: "60",
-            gender: "Male",
-            lastVisit: "01/10/2024"
-        },
-    ])
 
     const [showAll, setShowAll] = useState<boolean>(false);
 
@@ -62,7 +35,9 @@ const Dashboard: React.FC = () => {
                 </div>
                 <div className="flex gap-10">
                     <div className="relative overflow-x-auto w-[50%] border-2 rounded-lg">
-                        <div className="w-full h-[50px] flex items-center pl-6 bg-[#174B95] text-white">Recent Patients</div>
+                        <div className="w-full h-[50px] flex items-center justify-between p-5 pl-6 bg-[#174B95] text-white">Recent Patients
+                            <button className="flex items-center justify-center bg-white w-[35px] h-[35px] gap-2 text-[#E1E6F0] rounded-full" onClick={() => setRefresh(true)}><RefreshIconBlue /></button>
+                        </div>
                         <div className="max-h-[313px] overflow-auto">
                             <table className="w-full text-sm text-left rtl:text-right max-h-[320px] overflow-auto">
                                 <thead className="text-[#333438] font-normal bg-gray-50 text-[15px]">
@@ -82,12 +57,12 @@ const Dashboard: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="text-[15px]">
-                                    {patients && (showAll ? patients : patients.slice(0, 4)).map((patient) => (
+                                    {recentPatients && (showAll ? recentPatients : recentPatients.slice(0, 4)).map((recentPatients) => (
                                         <tr className="bg-white border-b border-gray-200">
-                                            <th scope="row" className="px-6 py-4 text-[#333438] font-normal whitespace-nowrap">{patient.name}</th>
-                                            <td className="px-6 py-4">{patient.age}</td>
-                                            <td className="px-6 py-4">{patient.gender}</td>
-                                            <td className="px-6 py-4">{patient.lastVisit}</td>
+                                            <th scope="row" className="px-6 py-4 text-[#333438] font-normal whitespace-nowrap">{recentPatients.name}</th>
+                                            <td className="px-6 py-4">{recentPatients.age}</td>
+                                            <td className="px-6 py-4">{recentPatients.gender}</td>
+                                            <td className="px-6 py-4">{recentPatients.lastVisit}</td>
                                         </tr>
                                     ))}
                                     {!showAll &&

@@ -2,10 +2,12 @@ package com.pm.patientservice.controller;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponeDto;
+import com.pm.patientservice.dto.RecentPatientDtlsResponseDto;
 import com.pm.patientservice.dto.validators.CreatePatientValidatorGroup;
 import com.pm.patientservice.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,13 @@ public class PatientController {
     public ResponseEntity<List<PatientResponeDto>> getPatients() {
         List<PatientResponeDto> patients = patientService.getPatients();
         return ResponseEntity.ok().body(patients);
+    }
+
+    @GetMapping("/recentPatients")
+    @Operation(summary = "Get Recent Patient Details")
+    public ResponseEntity<List<RecentPatientDtlsResponseDto>> getRecentPatients() {
+        List<RecentPatientDtlsResponseDto> recentPatients = patientService.getRecentPatients();
+        return ResponseEntity.ok().body(recentPatients);
     }
 
     @PostMapping("/createPatient")

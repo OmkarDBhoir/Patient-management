@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import Sidebar from "../Navbar/Sidebar";
 import dashboard from '../../assets/dashboard.png'
@@ -11,6 +11,8 @@ import TopNavbar from "../Navbar/TopNavBar";
 import doctor_profile from '../../assets/doctor_profile.png'
 import Patients from "../Patients/Patients";
 import Appointment from "../Appointment/Appointment";
+import { patientsDtls } from "../../pojos/Dashboard.pojos";
+import apiService from "../../services/ApiService";
 
 interface User {
     name: string;
@@ -26,17 +28,34 @@ const tempList: navs[] = [
 ]
 const Home: React.FC = () => {
     const [user, setUser] = useState<User>({ name: 'Dr. smith', role: 'Admin' })
-
     const [active, setActive] = useState<number>(0);
-
     const [navList, setNavList] = useState<navs[]>(tempList);
+    const [recentPatients, setRecentPatients] = useState<patientsDtls[]>([]);
+    const [refresh, setRefresh] = useState<boolean>(true);
+
+    const fetchPatients = async () => {
+
+        try {
+            const response = await apiService.get<patientsDtls[]>("/patients/recentPatients");
+            setRecentPatients(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        if (refresh) {
+            fetchPatients();
+            setRefresh(false);
+        }
+    }, [refresh])
 
     const render = () => {
         switch (active) {
             case 0:
-                return <Dashboard />
+                return <Dashboard recentPatients={recentPatients} setRefresh={setRefresh} />
             case 1:
-                return <Patients />
+                return <Patients recentPatients={recentPatients} setRefresh={setRefresh} />
             case 2:
                 return <Appointment />
             default:

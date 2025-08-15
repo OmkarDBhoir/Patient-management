@@ -2,13 +2,16 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponeDto;
+import com.pm.patientservice.dto.RecentPatientDtlsResponseDto;
 import com.pm.patientservice.exceptions.EmailAlreadyExistsException;
 import com.pm.patientservice.exceptions.PatientNotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
+import com.pm.patientservice.model.RecentlyVisitedPatient;
 import com.pm.patientservice.repository.PatientRepository;
+import com.pm.patientservice.repository.RecentlyVisitedPatientRepository;
 import com.pm.patientservice.utils.DateUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,11 +23,13 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final BillingServiceGrpcClient billingServiceGrpcClient;
     private final KafkaProducer kafkaProducer;
+    private final RecentlyVisitedPatientRepository recentlyVisitedPatientRepository;
 
-    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer) {
+    public PatientServiceImpl(PatientRepository patientRepository, BillingServiceGrpcClient billingServiceGrpcClient, KafkaProducer kafkaProducer, RecentlyVisitedPatientRepository recentlyVisitedPatientRepository) {
         this.patientRepository = patientRepository;
         this.billingServiceGrpcClient = billingServiceGrpcClient;
         this.kafkaProducer = kafkaProducer;
+        this.recentlyVisitedPatientRepository = recentlyVisitedPatientRepository;
     }
 
 
@@ -70,6 +75,12 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void deletePatient(UUID id) {
         patientRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RecentPatientDtlsResponseDto> getRecentPatients() {
+        List<RecentlyVisitedPatient> patients = recentlyVisitedPatientRepository.findAllByOrderByVisitDateDesc();
+        return patients.stream().map(PatientMapper:: toRecentPatientDtlsResponseDto).toList();
     }
 
 }
