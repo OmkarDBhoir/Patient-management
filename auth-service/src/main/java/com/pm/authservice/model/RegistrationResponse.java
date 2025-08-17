@@ -1,16 +1,24 @@
 package com.pm.authservice.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="users")
-public class User {
+public class RegistrationResponse {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column(name="email", unique = true, nullable = false)
     private String email;
@@ -21,19 +29,4 @@ public class User {
     @Column(name="role", nullable = false)
     private String role;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
 }

@@ -35,11 +35,11 @@ const Dashboard: React.FC<DashbaordProps> = ({ recentPatients, setRefresh }) => 
                 </div>
                 <div className="flex gap-10">
                     <div className="relative overflow-x-auto w-[50%] border-2 rounded-lg">
-                        <div className="w-full h-[50px] flex items-center justify-between p-5 pl-6 bg-[#174B95] text-white">Recent Patients
+                        <div className="w-full h-[64px] flex items-center justify-between p-5 pl-6 bg-[#174B95] text-white">Recent Patients
                             <button className="flex items-center justify-center bg-white w-[35px] h-[35px] gap-2 text-[#E1E6F0] rounded-full" onClick={() => setRefresh(true)}><RefreshIconBlue /></button>
                         </div>
-                        <div className="max-h-[313px] overflow-auto">
-                            <table className="w-full text-sm text-left rtl:text-right max-h-[320px] overflow-auto">
+                        <div className="max-h-[427px] overflow-auto">
+                            <table className="w-full text-sm text-left rtl:text-right max-h-[400px] overflow-auto">
                                 <thead className="text-[#333438] font-normal bg-gray-50 text-[15px]">
                                     <tr>
                                         <th scope="col" className="px-6 py-3 font-normal">
@@ -57,7 +57,7 @@ const Dashboard: React.FC<DashbaordProps> = ({ recentPatients, setRefresh }) => 
                                     </tr>
                                 </thead>
                                 <tbody className="text-[15px]">
-                                    {recentPatients && (showAll ? recentPatients : recentPatients.slice(0, 4)).map((recentPatients) => (
+                                    {recentPatients && (showAll ? recentPatients : recentPatients.slice(0, 6)).map((recentPatients) => (
                                         <tr className="bg-white border-b border-gray-200">
                                             <th scope="row" className="px-6 py-4 text-[#333438] font-normal whitespace-nowrap">{recentPatients.name}</th>
                                             <td className="px-6 py-4">{recentPatients.age}</td>
@@ -79,7 +79,7 @@ const Dashboard: React.FC<DashbaordProps> = ({ recentPatients, setRefresh }) => 
                             </table>
                         </div>
                     </div>
-                    <div className="relative" style={{ border: "1px solid" }}>
+                    <div className="relative border-2 rounded-lg">
                         <AppointmentCalendar />
                     </div>
                 </div>

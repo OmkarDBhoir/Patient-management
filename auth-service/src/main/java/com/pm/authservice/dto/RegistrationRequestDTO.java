@@ -8,18 +8,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
-public class LoginRequestDTO {
+@NoArgsConstructor
+public class RegistrationRequestDTO {
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be a valid email  address")
+    @NotBlank(message = "email is required")
+    @Email(message = "Email should be a valid email address")
     private String email;
 
-    @NotBlank(message="password is required")
+    @NotBlank(message = "password is required")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
+    @NotBlank(message = "role is required")
+    private String role;
 }

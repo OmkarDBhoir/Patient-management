@@ -43,4 +43,24 @@ public class JwtUtil {
             throw new JwtException("Invalid JWT");
         }
     }
+
+    public String extractUserEmail(String token) {
+        return Jwts.parser()
+                .verifyWith((SecretKey) secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expiration = Jwts.parser()
+                .verifyWith(((SecretKey) secretKey))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getExpiration();
+
+        return expiration.before(new Date());
+    }
 }
